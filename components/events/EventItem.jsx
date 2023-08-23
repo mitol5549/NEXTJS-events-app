@@ -1,4 +1,4 @@
-import { Button } from '../UI/Button';
+import { Button } from '../ui/Button';
 import { DateIcon } from '../icons/DateIcon';
 import { AddressIcon } from '../icons/AddressIcon';
 import { ArrowRightIcon } from '../icons/ArrowRightIcon';
@@ -16,7 +16,7 @@ export const EventItem = props => {
 
   const formattedAddress = location.replace(', ', '\n');
 
-  const exploreLink = `/event/${id}`;
+  const exploreLink = `/events/${id}`;
 
   return (
     <li className={classes.item}>
