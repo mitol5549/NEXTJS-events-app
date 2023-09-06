@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
 
 import { useRouter } from 'next/router';
 
@@ -67,19 +68,6 @@ export default function FilteredEventsPage() {
     return eventDate.getFullYear() === numYear && eventDate.getMonth() === numMonth - 1;
   });
 
-  if (isNaN(numYear) || isNaN(numMonth) || numYear > 2030 || numYear < 2021 || numMonth < 1 || numMonth > 12) {
-    return (
-      <>
-        <ErrorAlert>
-          <p>Invalid filter. Please adjust your values!</p>
-        </ErrorAlert>
-        <div className="center">
-          <Button link="/events">Show All Events</Button>
-        </div>
-      </>
-    );
-  }
-
   if (!filterLoadedEvents || filterLoadedEvents.length === 0) {
     return (
       <>
@@ -97,6 +85,10 @@ export default function FilteredEventsPage() {
 
   return (
     <>
+      <Head>
+        <title>Filtered Events</title>
+        <meta name="description" content={`All events for ${numMonth}/${numYear}.`} />
+      </Head>
       <ResultsTitle date={selectedDate} />
       <EventList events={filterLoadedEvents} />
     </>
