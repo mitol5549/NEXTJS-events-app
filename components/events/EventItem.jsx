@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { Button } from '../ui/Button';
 import { DateIcon } from '../icons/DateIcon';
 import { AddressIcon } from '../icons/AddressIcon';
@@ -20,7 +22,7 @@ export const EventItem = props => {
 
   return (
     <li className={classes.item}>
-      <img src={'/' + image} alt={title} />
+      <Image src={'/' + image} alt={title} width={250} height={160} />
       <div className={classes.content}>
         <div className={classes.summary}>
           <h2>{title}</h2>
