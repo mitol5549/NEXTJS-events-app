@@ -39,12 +39,10 @@ export const EventItem = props => {
               <DateIcon width={20} height={20} />
               <time>{humanReadableDate}</time>
             </div>
-            <small className="w-48 text-default-500">
-              <div className="flex items-center  gap-2 text-default-500">
-                <AddressIcon width={20} height={20} />
-                <address>{formattedAddress}</address>
-              </div>
-            </small>
+            <div className="flex items-center gap-2 text-default-500">
+              <AddressIcon width={20} height={20} />
+              <address>{formattedAddress}</address>
+            </div>
           </div>
           <Button as={Link} href={exploreLink}>
             <span>Explore Event</span>
