@@ -1,51 +1,50 @@
-import { useRef } from 'react';
+import React from 'react';
 
-import { Button } from '../ui/Button';
+import { months, years } from '../../helpers/calendar';
 
-import classes from './EventsSearch.module.css';
+import { Select, SelectItem, Button } from '@nextui-org/react';
 
 export const EventsSearch = props => {
-  const yearInputRef = useRef();
-  const monthInputRef = useRef();
+  const [selectedYear, setSelectedYear] = React.useState(new Set([]));
+  const [selectedMonth, setSelectedMonth] = React.useState(new Set([]));
 
-  const submitHandler = event => {
-    event.preventDefault();
+  const yearHandler = year => {
+    setSelectedYear(year.anchorKey);
+  };
 
-    const selectedYear = yearInputRef.current.value;
-    const selectedMonth = monthInputRef.current.value;
+  const monthHandler = month => {
+    setSelectedMonth(month.anchorKey);
+  };
 
+  const submitHandler = () => {
     props.onSearch(selectedYear, selectedMonth);
   };
 
   return (
-    <form className={classes.form} onSubmit={submitHandler}>
-      <div className={classes.controls}>
-        <div className={classes.control}>
-          <label htmlFor="year">Year</label>
-          <select id="year" ref={yearInputRef}>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-          </select>
+    <div className="flex flex-col justify-between w-4/5 max-w-2xl p-4 my-8 mx-auto md:flex-row gap-4">
+      <div className="flex flex-col w-full gap-4 md:w-4/5 md:flex-row">
+        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+          <Select label="Year" className="max-w-xs" size="sm" onSelectionChange={yearHandler}>
+            {years.map(year => (
+              <SelectItem key={year.value} value={year.value}>
+                {year.value}
+              </SelectItem>
+            ))}
+          </Select>
         </div>
-        <div className={classes.control}>
-          <label htmlFor="month">Month</label>
-          <select id="month" ref={monthInputRef}>
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-          </select>
+        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+          <Select label="Month" className="max-w-xs" size="sm" onSelectionChange={monthHandler}>
+            {months.map(month => (
+              <SelectItem key={month.value} value={month.value}>
+                {month.label}
+              </SelectItem>
+            ))}
+          </Select>
         </div>
       </div>
-      <Button>Find Events</Button>
-    </form>
+      <Button className="flex gap-4 md:flex-row" size="lg" variant="ghost" onClick={submitHandler}>
+        Find Events
+      </Button>
+    </div>
   );
 };

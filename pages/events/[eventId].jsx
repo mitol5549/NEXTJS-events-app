@@ -6,6 +6,7 @@ import { EventSummary } from '../../components/event-detail/EventSummary';
 import { EventLogistics } from '../../components/event-detail/EventLogistics';
 import { EventContent } from '../../components/event-detail/EventContent';
 import { ErrorAlert } from '../../components/ui/ErrorAlert';
+import { Comments } from '../../components/input/Comments';
 
 export default function EventDetailPage(props) {
   const { event } = props;
@@ -29,7 +30,7 @@ export default function EventDetailPage(props) {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
-      <Comments eventId={event.id}/>
+      <Comments eventId={event.id} />
     </>
   );
 }

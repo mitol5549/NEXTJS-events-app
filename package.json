@@ -10,9 +10,11 @@
   "dependencies": {
     "@nextui-org/react": "^2.1.10",
     "framer-motion": "^10.16.4",
+    "jquery": "^3.7.1",
     "next": "^13.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-owl-carousel": "^2.3.3",
     "swr": "^2.2.2"
   },
   "devDependencies": {
