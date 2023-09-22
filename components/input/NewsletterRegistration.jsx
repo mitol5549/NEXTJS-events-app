@@ -1,14 +1,26 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
+
+import axios from 'axios';
+
+import { NotificationContext } from '../../store/notification-context';
 
 import { Input, Button } from '@nextui-org/react';
-import axios from 'axios';
 
 export const NewsletterRegistration = () => {
   const emailInputRef = useRef();
-  function registrationHandler(event) {
+
+  const notificationCtx = useContext(NotificationContext);
+
+  const registrationHandler = event => {
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
+
+    notificationCtx.showNotification({
+      title: 'Signing up...',
+      message: 'Registering for newsletter.',
+      status: 'pendeing',
+    });
 
     axios
       .post(
@@ -20,8 +32,21 @@ export const NewsletterRegistration = () => {
           },
         },
       )
-      .then(res => console.log(res.data));
-  }
+      .then(res => {
+        notificationCtx.showNotification({
+          title: 'Success!',
+          message: 'Successfully registered for newsletter!',
+          status: 'success',
+        });
+      })
+      .catch(error => {
+        notificationCtx.showNotification({
+          title: 'Error!',
+          message: error.message || 'Something went wrong!',
+          status: 'error',
+        });
+      });
+  };
 
   return (
     <section className="my-12 mx-auto max-w-xs">
