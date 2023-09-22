@@ -19,7 +19,7 @@ export const NewsletterRegistration = () => {
     notificationCtx.showNotification({
       title: 'Signing up...',
       message: 'Registering for newsletter.',
-      status: 'pendeing',
+      status: 'pending',
     });
 
     axios
