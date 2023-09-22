@@ -9,8 +9,8 @@ import useSWR from 'swr';
 
 import { EventList } from '../../components/events/EventList';
 import { ResultsTitle } from '../../components/events/ResultsTitle';
-import { Button } from '../../components/ui/Button';
 import { ErrorAlert } from '../../components/ui/ErrorAlert';
+import { Button, Link, Spinner } from '@nextui-org/react';
 
 export default function FilteredEventsPage() {
   const [loadedEvents, setLoadedEvents] = useState();
@@ -20,7 +20,7 @@ export default function FilteredEventsPage() {
 
   const filteredData = router.query.slug;
 
-  const { data, error } = useSWR(
+  const { data, error, isLoading } = useSWR(
     'https://nextjs-course111-default-rtdb.europe-west1.firebasedatabase.app/events.json',
     url => fetch(url).then(res => res.json()),
   );
@@ -51,7 +51,8 @@ export default function FilteredEventsPage() {
     return (
       <>
         {pageHeadData}
-        <p className="center">Loading...</p>;
+        <p className="center">Loading...</p>
+        <Spinner label="Loading" />
       </>
     );
   }
@@ -76,8 +77,10 @@ export default function FilteredEventsPage() {
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>
         </ErrorAlert>
-        <div className="center">
-          <Button link="/events">Show All Events</Button>
+        <div className="text-center">
+          <Button as={Link} className="bg-primary-200" href="/events">
+            Show All Events
+          </Button>
         </div>
       </>
     );
@@ -95,8 +98,10 @@ export default function FilteredEventsPage() {
         <ErrorAlert>
           <p>No events found for the chosen filter!</p>
         </ErrorAlert>
-        <div className="center">
-          <Button link="/events">Show All Events</Button>
+        <div className="text-center">
+          <Button as={Link} className="bg-primary-200" href="/events">
+            Show All Events
+          </Button>
         </div>
       </>
     );

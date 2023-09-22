@@ -1,14 +1,12 @@
-import classes from './LogisticsItem.module.css';
-
 export const LogisticsItem = props => {
   const { icon: Icon } = props;
 
   return (
-    <li className={classes.item}>
-      <span className={classes.icon}>
-        <Icon />
+    <li className="flex flex-col items-center text-center text-2xl md:items-start md:text-left">
+      <span className="block">
+        <Icon width={30} height={30} />
       </span>
-      <span className={classes.content}>{props.children}</span>
+      <span className="block">{props.children}</span>
     </li>
   );
 };

@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { CommentList } from './CommentList';
 import { NewComment } from './NewComment';
 
-import classes from './comments.module.css';
+import { Button } from '@nextui-org/react';
+import axios from 'axios';
 
 export const Comments = props => {
   const { eventId } = props;
@@ -13,9 +14,9 @@ export const Comments = props => {
 
   useEffect(() => {
     if (showComments) {
-      fetch(`/api/comments/${eventId}`)
-        .then(res => res.json())
-        .then(data => setComments(data.comments));
+      axios.get(`/api/comments/${eventId}`).then(res => {
+        setComments(res.data.comments);
+      });
     }
   }, [showComments]);
 
@@ -24,20 +25,18 @@ export const Comments = props => {
   }
 
   function addCommentHandler(commentData) {
-    fetch(`/api/comments/${eventId}`, {
-      method: 'POST',
-      body: JSON.stringify(commentData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(data => console.log(data));
+    axios
+      .post(`/api/comments/${eventId}`, commentData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => console.log(res.data));
   }
 
   return (
-    <section className={classes.comments}>
-      <button onClick={toggleCommentsHandler}>{showComments ? 'Hide' : 'Show'} Comments</button>
+    <section className="max-w-3xl w-4/5 mx-auto my-12 text-center">
+      <Button onClick={toggleCommentsHandler}>{showComments ? 'Hide' : 'Show'} Comments</Button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
       {showComments && <CommentList items={comments} />}
     </section>

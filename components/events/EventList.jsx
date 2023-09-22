@@ -1,4 +1,5 @@
 import { Carousel } from '../ui/Carousel';
+
 import { EventItem } from './EventItem';
 
 export const EventList = props => {
@@ -7,8 +8,8 @@ export const EventList = props => {
   if (isCarousel) {
     return (
       <div className="relative w-full 2xl:max-w-10xl">
-        <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-white to-transparent z-10" />
+        <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-background to-transparent z-10" />
         <ul className="justify-center w-full my-5 mx-auto">
           <Carousel>
             {events.map(event => (

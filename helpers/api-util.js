@@ -1,7 +1,11 @@
-export async function getAllEvents() {
-  const response = await fetch('https://nextjs-course111-default-rtdb.europe-west1.firebasedatabase.app/events.json');
+import axios from 'axios';
 
-  const data = await response.json();
+export async function getAllEvents() {
+  const response = await axios.get(
+    'https://nextjs-course111-default-rtdb.europe-west1.firebasedatabase.app/events.json',
+  );
+
+  const data = await response.data;
 
   const events = [];
 

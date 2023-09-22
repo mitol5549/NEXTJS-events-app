@@ -1,21 +1,15 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
-import classes from './new-comment.module.css';
+import { Button, Card, Input, Textarea } from '@nextui-org/react';
 
 export const NewComment = props => {
   const [isInvalid, setIsInvalid] = useState(false);
 
-  const emailInputRef = useRef();
-  const nameInputRef = useRef();
-  const commentInputRef = useRef();
+  const [enteredEmail, setEnteredEmail] = useState('');
+  const [enteredName, setEnteredName] = useState('');
+  const [enteredComment, setEnteredComment] = useState('');
 
-  function sendCommentHandler(event) {
-    event.preventDefault();
-
-    const enteredEmail = emailInputRef.current.value;
-    const enteredName = nameInputRef.current.value;
-    const enteredComment = commentInputRef.current.value;
-
+  const sendCommentHandler = () => {
     if (
       !enteredEmail ||
       enteredEmail.trim() === '' ||
@@ -34,26 +28,53 @@ export const NewComment = props => {
       name: enteredName,
       text: enteredComment,
     });
-  }
+
+    setEnteredEmail('');
+    setEnteredName('');
+    setEnteredComment('');
+  };
 
   return (
-    <form className={classes.form} onSubmit={sendCommentHandler}>
-      <div className={classes.row}>
-        <div className={classes.control}>
-          <label htmlFor="email">Your email</label>
-          <input type="email" id="email" ref={emailInputRef} />
+    <Card className="my-8 p-4 ">
+      <div className="flex flex-wrap gap-4">
+        <div className="grow mb-2 text-left">
+          <Input
+            className="p-1"
+            type="email"
+            label="Email"
+            labelPlacement="outside"
+            placeholder="Enter your email"
+            value={enteredEmail}
+            onValueChange={setEnteredEmail}
+          />
         </div>
-        <div className={classes.control}>
-          <label htmlFor="name">Your name</label>
-          <input type="text" id="name" ref={nameInputRef} />
+        <div className="grow mb-2 text-left">
+          <Input
+            className="p-1"
+            id="name"
+            type="text"
+            label="Name"
+            labelPlacement="outside"
+            placeholder="Enter your name"
+            value={enteredName}
+            onValueChange={setEnteredName}
+          />
         </div>
       </div>
-      <div className={classes.control}>
-        <label htmlFor="comment">Your comment</label>
-        <textarea id="comment" rows="5" ref={commentInputRef}></textarea>
+      <div className="grow mb-2 text-left">
+        <Textarea
+          label="Comment"
+          labelPlacement="outside"
+          minRows={5}
+          id="comment"
+          placeholder="Please enter your comment"
+          isRequired
+          value={enteredComment}
+          onValueChange={setEnteredComment}
+        ></Textarea>
       </div>
       {isInvalid && <p>Please enter a valid email address and comment!</p>}
-      <button>Submit</button>
-    </form>
+      <Button onClick={sendCommentHandler}>Submit</Button>
+    </Card>
   );
 };

@@ -1,15 +1,13 @@
-import classes from './comment-list.module.css';
-
 export const CommentList = props => {
   const { items } = props;
 
   return (
-    <ul className={classes.comments}>
+    <ul className="flex flex-col gap-4">
       {items.map(item => (
-        <li key={item.id}>
+        <li className="text-left py-2 border-b-2 border-b-primary-200 border-solid " key={item._id}>
           <p>{item.text}</p>
-          <div>
-            By <address>{item.name}</address>
+          <div className="text-right italic">
+            By <address className="inline">{item.name}</address>
           </div>
         </li>
       ))}

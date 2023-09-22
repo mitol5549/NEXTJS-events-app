@@ -1,5 +1,7 @@
-import classes from './ErrorAlert.module.css';
+import { Card } from '@nextui-org/react';
 
 export const ErrorAlert = props => {
-  return <div className={classes.alert}>{props.children}</div>;
+  return (
+    <Card className="text-center mx-auto my-4 px-8 py-4 w-5/6 max-w-2xl font-bold text-2xl">{props.children}</Card>
+  );
 };

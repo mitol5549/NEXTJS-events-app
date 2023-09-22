@@ -1,5 +1,3 @@
-import classes from './EventContent.module.css';
-
 export const EventContent = props => {
-  return <section className={classes.content}>{props.children}</section>;
+  return <section className="text-2xl w-5/6 max-w-2xl text-center m-auto mt-32">{props.children}</section>;
 };

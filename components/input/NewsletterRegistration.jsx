@@ -9,20 +9,24 @@ export const NewsletterRegistration = () => {
 
     const enteredEmail = emailInputRef.current.value;
 
-    fetch('/api/newsletter', {
-      method: 'POST',
-      body: JSON.stringify({ email: enteredEmail }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then(data => console.log(data));
+    axios
+      .post(
+        '/api/newsletter',
+        { email: enteredEmail },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      .then(res => console.log(res.data));
   }
 
   return (
     <section className="my-12 mx-auto max-w-xs">
       <h2 className="mb-4 text-center">Sign up to stay updated!</h2>
       <form onSubmit={registrationHandler}>
-        <div className="flex">
+        <div className="flex gap-4">
           <Input
             type="email"
             id="email"
@@ -32,7 +36,7 @@ export const NewsletterRegistration = () => {
             isClearable
             ref={emailInputRef}
           />
-          <Button size="lg" type="submit">
+          <Button className="bg-primary-200" size="lg" type="submit">
             Register
           </Button>
         </div>

@@ -23,31 +23,34 @@ export const EventItem = props => {
       <Card className="py-4">
         <CardHeader className="pb-0 pt-2 px-auto flex-col item-center">
           <Image
-            className="w-1/1 object-cover h-40 md:w-4/5 md:h-56"
+            className="w-1/1 object-cover h-40 md:w-4/5 md:h-56 rounded-lg"
             src={'/' + image}
             alt={title}
             width={250}
             height={160}
+            priority={title === 'Networking for introverts' ? true : false}
           />
         </CardHeader>
         <CardBody className="py-6">
           <h4 className="font-bold text-large text-center">{title}</h4>
         </CardBody>
         <CardFooter className="flex justify-around">
-          <div>
+          <div className="mr-4">
             <div className="flex items-center gap-2 text-tiny uppercase font-bold pb-2">
               <DateIcon width={20} height={20} />
               <time>{humanReadableDate}</time>
             </div>
-            <div className="flex items-center gap-2 text-default-500">
-              <AddressIcon width={20} height={20} />
+            <div className="flex items-start text-sm gap-2 text-default-500">
+              <div>
+                <AddressIcon width={20} height={20} />
+              </div>
               <address>{formattedAddress}</address>
             </div>
           </div>
-          <Button as={Link} href={exploreLink}>
-            <span>Explore Event</span>
+          <Button as={Link} href={exploreLink} className="mx-4 px-8">
+            <span>Explore</span>
             <span className="ml-2 inline-flex justify-center items-center">
-              <ArrowRightIcon width={20} height={20} />
+              <ArrowRightIcon width={20} height={20} className="fill-primary-200" />
             </span>
           </Button>
         </CardFooter>
