@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 
-import classes from './notification.module.css';
 import { NotificationContext } from '../../store/notification-context';
 
 export const Notification = props => {
@@ -11,22 +10,22 @@ export const Notification = props => {
   let statusClasses = '';
 
   if (status === 'success') {
-    statusClasses = classes.success;
+    statusClasses = 'bg-success';
   }
 
   if (status === 'error') {
-    statusClasses = classes.error;
+    statusClasses = 'bg-danger';
   }
 
   if (status === 'pending') {
-    statusClasses = classes.pending;
+    statusClasses = 'bg-primary';
   }
 
-  const activeClasses = `${classes.notification} ${statusClasses}`;
+  const activeClasses = `fixed bottom-0 left-0 flex justify-around items-center w-full h-20 text-white ${statusClasses}`;
 
   return (
     <div className={activeClasses} onClick={notificationCtx.hideNotification}>
-      <h2>{title}</h2>
+      <h2 className="text-xl">{title}</h2>
       <p>{message}</p>
     </div>
   );
