@@ -40,24 +40,25 @@ export const NewComment = props => {
         <div className="grow mb-2 text-left">
           <Input
             className="p-1"
-            type="email"
+            id="email"
             label="Email"
             labelPlacement="outside"
             placeholder="Enter your email"
             value={enteredEmail}
             onValueChange={setEnteredEmail}
+            isRequired
           />
         </div>
         <div className="grow mb-2 text-left">
           <Input
             className="p-1"
             id="name"
-            type="text"
             label="Name"
             labelPlacement="outside"
             placeholder="Enter your name"
             value={enteredName}
             onValueChange={setEnteredName}
+            isRequired
           />
         </div>
       </div>
@@ -74,7 +75,9 @@ export const NewComment = props => {
         ></Textarea>
       </div>
       {isInvalid && <p>Please enter a valid email address and comment!</p>}
-      <Button onClick={sendCommentHandler}>Submit</Button>
+      <Button className="w-32 self-center bg-primary-200" onClick={sendCommentHandler}>
+        Submit
+      </Button>
     </Card>
   );
 };

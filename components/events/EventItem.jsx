@@ -34,7 +34,7 @@ export const EventItem = props => {
         <CardBody className="py-6">
           <h4 className="font-bold text-large text-center">{title}</h4>
         </CardBody>
-        <CardFooter className="flex justify-around">
+        <CardFooter className="flex ">
           <div className="mr-4">
             <div className="flex items-center gap-2 text-tiny uppercase font-bold pb-2">
               <DateIcon width={20} height={20} />
@@ -47,12 +47,14 @@ export const EventItem = props => {
               <address>{formattedAddress}</address>
             </div>
           </div>
-          <Button as={Link} href={exploreLink} className="mx-4 px-8">
-            <span>Explore</span>
-            <span className="ml-2 inline-flex justify-center items-center">
-              <ArrowRightIcon width={20} height={20} className="fill-primary-200" />
-            </span>
-          </Button>
+          <div className="w-44">
+            <Button as={Link} href={exploreLink}>
+              <span>Explore</span>
+              <span className="ml-2 inline-flex justify-center items-center">
+                <ArrowRightIcon width={20} height={20} className="fill-primary-200" />
+              </span>
+            </Button>
+          </div>
         </CardFooter>
       </Card>
     </li>
