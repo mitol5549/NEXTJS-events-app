@@ -20,9 +20,9 @@ export const EventsSearch = props => {
   };
 
   return (
-    <div className="flex flex-col justify-between w-4/5 max-w-2xl p-4 my-8 mx-auto md:flex-row gap-4">
-      <div className="flex flex-col w-full gap-4 md:w-4/5 md:flex-row">
-        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+    <div className="flex flex-col justify-between w-4/5 max-w-2xl p-4 my-8 mx-auto md:flex-row gap-4 items-center">
+      <div className="flex flex-col w-full gap-4 md:w-4/5 md:flex-row ">
+        <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
           <Select
             defaultSelectedKeys={['2021']}
             label="Year"
@@ -37,7 +37,7 @@ export const EventsSearch = props => {
             ))}
           </Select>
         </div>
-        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+        <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
           <Select
             defaultSelectedKeys={['1']}
             label="Month"
@@ -53,7 +53,7 @@ export const EventsSearch = props => {
           </Select>
         </div>
       </div>
-      <Button className="flex gap-4 md:flex-row bg-primary-200" size="lg" onClick={submitHandler}>
+      <Button className="flex gap-4 md:flex-row bg-primary-200 w-80 md:w-32" size="lg" onClick={submitHandler}>
         Find Events
       </Button>
     </div>

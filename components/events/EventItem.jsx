@@ -19,7 +19,7 @@ export const EventItem = props => {
   const exploreLink = `/events/${id}`;
 
   return (
-    <li className="py-4 w-96">
+    <li className="py-4 w-80 md:w-96">
       <Card className="py-4">
         <CardHeader className="pb-0 pt-2 px-auto flex-col item-center">
           <Image
@@ -34,7 +34,7 @@ export const EventItem = props => {
         <CardBody className="py-6">
           <h4 className="font-bold text-large text-center">{title}</h4>
         </CardBody>
-        <CardFooter className="flex ">
+        <CardFooter className="flex flex-col md:flex-row">
           <div className="mr-4">
             <div className="flex items-center gap-2 text-tiny uppercase font-bold pb-2">
               <DateIcon width={20} height={20} />
@@ -47,7 +47,7 @@ export const EventItem = props => {
               <address>{formattedAddress}</address>
             </div>
           </div>
-          <div className="w-44">
+          <div className="md:w-44 mt-8 justify-center">
             <Button as={Link} href={exploreLink}>
               <span>Explore</span>
               <span className="ml-2 inline-flex justify-center items-center">
