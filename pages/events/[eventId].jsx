@@ -5,7 +5,7 @@ import { getFeaturedEvents, getEventById } from '../../helpers/api-util';
 import { EventSummary } from '../../components/event-detail/EventSummary';
 import { EventLogistics } from '../../components/event-detail/EventLogistics';
 import { EventContent } from '../../components/event-detail/EventContent';
-import { ErrorAlert } from '../../components/ui/ErrorAlert';
+import { ErrorAlert } from '../../components/UI/ErrorAlert';
 import { Comments } from '../../components/input/Comments';
 
 export default function EventDetailPage(props) {

@@ -9,7 +9,7 @@ import useSWR from 'swr';
 
 import { EventList } from '../../components/events/EventList';
 import { ResultsTitle } from '../../components/events/ResultsTitle';
-import { ErrorAlert } from '../../components/ui/ErrorAlert';
+import { ErrorAlert } from '../../components/UI/ErrorAlert';
 import { Button, Link, Spinner } from '@nextui-org/react';
 
 export default function FilteredEventsPage() {

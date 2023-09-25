@@ -11,10 +11,4 @@ const nextConfig = {
     );
     return config;
   },
-  resolve: {
-    modules: ['node_modules'],
-    alias: {
-      'owl.carousel': 'owl.carousel/dist/owl.carousel.min.js',
-    },
-  },
 };

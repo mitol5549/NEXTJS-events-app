@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
-import { Layout } from '../components/layout/layout';
+import { Layout } from '../components/layout/Layout';
 import { NotificationContextProvider } from '../store/notification-context';
 
 import '../styles/globals.css';
