@@ -13,11 +13,17 @@ import {
 } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
 
+import { useSession, signOut } from 'next-auth/react';
+
 import { Sun, Moon } from '../icons/ThemeIcon';
 
 export const MainHeader = () => {
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
+
   const { resolvedTheme, setTheme } = useTheme();
 
   // useEffect only runs on the client, so now we can safely show the UI
@@ -28,6 +34,10 @@ export const MainHeader = () => {
   if (!mounted) {
     return null;
   }
+
+  const logoutHandler = () => {
+    signOut();
+  };
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
@@ -46,21 +56,28 @@ export const MainHeader = () => {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="#" isDisabled={session ? false : true}>
             Create Event
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="/events">
+          <Link color="foreground" href="/events" isDisabled={session ? false : true}>
             Browse All Events
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="gap-12 hidden sm:flex">
-          <Button as={Link} href="/auth" className="bg-primary-200">
-            Login
-          </Button>
+          {session && (
+            <Button className="bg-primary-200" onClick={logoutHandler}>
+              Logout
+            </Button>
+          )}
+          {!session && !loading && (
+            <Button as={Link} href="/auth" className="bg-primary-200">
+              Login
+            </Button>
+          )}
         </NavbarItem>
         <NavbarItem className="justify-center">
           <Button
@@ -79,19 +96,26 @@ export const MainHeader = () => {
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link color="foreground" className="w-full" href="#" size="lg">
+          <Link color="foreground" className="w-full" href="#" size="lg" isDisabled={session ? false : true}>
             Create Event
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link color="foreground" className="w-full" href="/events" size="lg">
+          <Link color="foreground" className="w-full" href="/events" size="lg" isDisabled={session ? false : true}>
             Browse All Events
           </Link>
         </NavbarMenuItem>
-        <NavbarMenuItem>
-          <Link color="foreground" className="w-full" href="/auth" size="lg">
-            Login
-          </Link>
+        <NavbarMenuItem className="w-full flex">
+          {session && (
+            <Button color="foreground" className="mt-8 mx-auto bg-primary-200" size="lg">
+              Logout
+            </Button>
+          )}
+          {!session && (
+            <Link color="foreground" className="w-full" href="/auth" size="lg">
+              Login
+            </Link>
+          )}
         </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
