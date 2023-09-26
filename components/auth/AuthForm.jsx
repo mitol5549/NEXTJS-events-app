@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Button, Card, Input } from '@nextui-org/react';
 import { createUser } from '../../helpers/auth';
 
+import { signIn } from 'next-auth/react';
+
 export const AuthForm = () => {
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
@@ -15,7 +17,9 @@ export const AuthForm = () => {
 
   const submitHandler = async () => {
     if (isLogin) {
-      //isLogin
+      const result = await signIn('credentials', { redirect: false, email: enteredEmail, password: enteredPassword });
+      if (!result.error) {
+      }
     } else {
       try {
         const result = await createUser(enteredEmail, enteredPassword);
