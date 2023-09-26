@@ -23,3 +23,11 @@ export const getAllDocuments = async (client, collection, sort, filter = {}) => 
 
   return documents;
 };
+
+export const findOne = async (client, collection, filter = {}) => {
+  const db = client.db('events');
+
+  const existingItem = await db.collection(collection).findOne(filter);
+
+  return existingItem;
+};

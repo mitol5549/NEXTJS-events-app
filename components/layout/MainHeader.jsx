@@ -30,7 +30,7 @@ export const MainHeader = () => {
   }
 
   return (
-    <Navbar onOpenMenuChange={setIsMenuOpen} isBordered>
+    <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
       <NavbarContent justify="left">
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className="md:hidden" />
       </NavbarContent>
@@ -58,7 +58,9 @@ export const MainHeader = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="gap-12 hidden sm:flex">
-          <Button className="bg-primary-200">Login</Button>
+          <Button as={Link} href="/auth" className="bg-primary-200">
+            Login
+          </Button>
         </NavbarItem>
         <NavbarItem className="justify-center">
           <Button
@@ -87,7 +89,7 @@ export const MainHeader = () => {
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link color="foreground" className="w-full" href="#" size="lg">
+          <Link color="foreground" className="w-full" href="/auth" size="lg">
             Login
           </Link>
         </NavbarMenuItem>

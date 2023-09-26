@@ -1,34 +1,44 @@
 import { hashPassword } from '../../../helpers/auth';
-import { connectDatabase, insertDocument } from '../../../helpers/db-util';
+import { connectDatabase, findOne, insertDocument } from '../../../helpers/db-util';
 
 export default async function handler(req, res) {
-  const data = req.body;
+  if (req.method === 'POST') {
+    const data = req.body;
 
-  const { email, password } = data;
+    const { email, password } = data;
 
-  if (!email || !email.include('@') || !password || password.trim().lenght < 7) {
-    res.status(422).json({ message: 'Invalid input - password should also be at least 7 characters long.' });
-    return;
-  }
+    if (!email || !email.includes('@') || !password || password.trim().length < 7) {
+      res.status(422).json({ message: 'Invalid input - password should also be at least 7 characters long.' });
+      return;
+    }
 
-  const hashedPassword = hashPassword(password);
+    let client;
 
-  let client;
+    try {
+      client = await connectDatabase();
+    } catch (error) {
+      res.status(500).json({ message: 'Connecting to the database failed!' });
+      return;
+    }
+    const existingUser = await findOne(client, 'users', { email });
 
-  try {
-    client = await connectDatabase();
-  } catch (error) {
-    res.status(500).json({ message: 'Connecting to the database failed!' });
-    return;
-  }
+    if (existingUser) {
+      res.status(422).json({ message: 'User already exists!' });
+      client.close();
+      return;
+    }
 
-  try {
-    await insertDocument(client, 'users', { email, password: hashedPassword });
+    const hashedPassword = await hashPassword(password);
+
+    try {
+      await insertDocument(client, 'users', { email, password: hashedPassword });
+      client.close();
+    } catch (error) {
+      res.status(500).json({ message: 'Inserting user data failed!' });
+      return;
+    }
+
+    res.status(201).json({ message: 'Created user!' });
     client.close();
-  } catch (error) {
-    res.status(500).json({ message: 'Inserting user data failed!' });
-    return;
   }
-
-  res.status(201).json({ message: 'Created user!' });
 }
