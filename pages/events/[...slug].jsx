@@ -51,7 +51,7 @@ export default function FilteredEventsPage() {
     return (
       <>
         {pageHeadData}
-        <Progress label="Loading..." color="primary-200" isIndeterminate />;
+        <Progress size="lg" color="secondary" label="Loading..." isIndeterminate />
       </>
     );
   }

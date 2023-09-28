@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 import { getFeaturedEvents, getEventById } from '../../helpers/api-util';
@@ -7,9 +8,22 @@ import { EventLogistics } from '../../components/event-detail/EventLogistics';
 import { EventContent } from '../../components/event-detail/EventContent';
 import { ErrorAlert } from '../../components/UI/ErrorAlert';
 import { Comments } from '../../components/input/Comments';
+import { Progress } from '@nextui-org/react';
 
 export default function EventDetailPage(props) {
   const { event } = props;
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (event) {
+      setIsLoading(false);
+    }
+  }, [event]);
+
+  if (isLoading) {
+    return <Progress size="lg" color="secondary" label="Loading..." isIndeterminate={true} />;
+  }
 
   if (!event) {
     return (

@@ -36,8 +36,8 @@ export const NewComment = props => {
 
   return (
     <Card className="my-8 p-4 ">
-      <div className="flex flex-wrap gap-4">
-        <div className="grow mb-2 text-left">
+      <div className="flex flex-wrap gap-4 mb-4">
+        <div className="grow text-left">
           <Input
             className="p-1"
             id="email"
@@ -49,7 +49,7 @@ export const NewComment = props => {
             isRequired
           />
         </div>
-        <div className="grow mb-2 text-left">
+        <div className="grow text-left">
           <Input
             className="p-1"
             id="name"
@@ -74,7 +74,7 @@ export const NewComment = props => {
           onValueChange={setEnteredComment}
         ></Textarea>
       </div>
-      {isInvalid && <p>Please enter a valid email address and comment!</p>}
+      {isInvalid && <p className="text-danger mb-4">Please enter a valid email address and comment!</p>}
       <Button className="w-32 self-center bg-primary-200" onClick={sendCommentHandler}>
         Submit
       </Button>

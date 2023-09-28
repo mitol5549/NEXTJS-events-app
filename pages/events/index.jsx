@@ -12,6 +12,10 @@ import { Progress } from '@nextui-org/react';
 export default function AllEventsPage(props) {
   const [isLoading, setIsLoading] = useState(true);
 
+  const { events } = props;
+
+  const router = useRouter();
+
   useEffect(() => {
     getSession().then(session => {
       if (!session) {
@@ -22,10 +26,6 @@ export default function AllEventsPage(props) {
     });
   }, []);
 
-  const router = useRouter();
-
-  const { events } = props;
-
   const findEventsHandler = (year, month) => {
     const fullPath = `/events/${year}/${month}`;
 
@@ -33,7 +33,7 @@ export default function AllEventsPage(props) {
   };
 
   if (isLoading || !events) {
-    return <Progress label="Loading..." color="primary-200" isIndeterminate />;
+    return <Progress size="lg" color="secondary" label="Loading..." isIndeterminate />;
   }
 
   return (

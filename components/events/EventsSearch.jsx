@@ -53,7 +53,11 @@ export const EventsSearch = props => {
           </Select>
         </div>
       </div>
-      <Button className="flex gap-4 md:flex-row bg-primary-200 w-80 md:w-32" size="lg" onClick={submitHandler}>
+      <Button
+        className="flex gap-4 md:flex-row bg-primary-200 w-full max-w-xs md:w-32"
+        size="lg"
+        onClick={submitHandler}
+      >
         Find Events
       </Button>
     </div>

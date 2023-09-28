@@ -16,23 +16,34 @@ export const Comments = props => {
   const [comments, setComments] = useState([]);
   const [isFetchingComments, setIsFetchingComments] = useState(false);
 
+  const [isLoadingNewComment, setIsLoadingNewComment] = useState(false);
+
   const notificationCtx = useContext(NotificationContext);
 
   useEffect(() => {
     if (showComments) {
       setIsFetchingComments(true);
-      axios.get(`/api/comments/${eventId}`).then(res => {
-        setComments(res.data.comments);
-        setIsFetchingComments(false);
-      });
+      axios
+        .get(`/api/comments/${eventId}`)
+        .then(res => {
+          setComments(res.data.comments);
+          setIsFetchingComments(false);
+        })
+        .catch(error => {
+          notificationCtx.showNotification({
+            title: 'Error!',
+            message: error.response.data.message || 'Something went wrong!',
+            status: 'error',
+          });
+        });
     }
   }, [showComments]);
 
-  function toggleCommentsHandler() {
+  const toggleCommentsHandler = () => {
     setShowComments(prevStatus => !prevStatus);
-  }
+  };
 
-  function addCommentHandler(commentData) {
+  const addCommentHandler = commentData => {
     notificationCtx.showNotification({
       title: 'Sending comment...',
       message: 'Your comment is currently being stored into a database.',
@@ -51,23 +62,43 @@ export const Comments = props => {
           message: 'Your comment was saved!',
           status: 'success',
         });
+        setShowComments(true);
+      })
+      .then(res => {
+        axios
+          .get(`/api/comments/${eventId}`)
+          .then(res => {
+            setComments(res.data.comments);
+          })
+          .catch(error => {
+            notificationCtx.showNotification({
+              title: 'Error!',
+              message: error.response.data.message || 'Something went wrong!',
+              status: 'error',
+            });
+          });
       })
       .catch(error => {
         notificationCtx.showNotification({
           title: 'Error!',
-          message: error.message || 'Something went wrong!',
+          message: error.response.data.message || 'Something went wrong!',
           status: 'error',
         });
       });
-  }
+  };
 
   return (
     <section className="max-w-3xl w-4/5 mx-auto my-12 text-center">
-      <Button className="bg-primary-200" onClick={toggleCommentsHandler} isLoading={isFetchingComments ? true : false}>
+      <Button
+        className="bg-primary-200 mb-8"
+        onClick={toggleCommentsHandler}
+        isLoading={isFetchingComments ? true : false}
+      >
         {showComments ? 'Hide' : 'Show'} Comments
       </Button>
-      {showComments && !isFetchingComments && <NewComment onAddComment={addCommentHandler} />}
       {showComments && !isFetchingComments && <CommentList items={comments} />}
+      <h1 className="text-2xl font-mono font-normal mt-8">Add comment:</h1>
+      <NewComment onAddComment={addCommentHandler} />
     </section>
   );
 };
