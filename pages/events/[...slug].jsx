@@ -10,7 +10,7 @@ import useSWR from 'swr';
 import { EventList } from '../../components/events/EventList';
 import { ResultsTitle } from '../../components/events/ResultsTitle';
 import { ErrorAlert } from '../../components/UI/ErrorAlert';
-import { Button, Link, Spinner } from '@nextui-org/react';
+import { Button, Link, Progress, Spinner } from '@nextui-org/react';
 
 export default function FilteredEventsPage() {
   const [loadedEvents, setLoadedEvents] = useState();
@@ -51,8 +51,7 @@ export default function FilteredEventsPage() {
     return (
       <>
         {pageHeadData}
-        <p className="center">Loading...</p>
-        <Spinner label="Loading" />
+        <Progress label="Loading..." color="primary-200" isIndeterminate />;
       </>
     );
   }

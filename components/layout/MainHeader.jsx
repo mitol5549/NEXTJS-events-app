@@ -21,10 +21,10 @@ export const MainHeader = () => {
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const { resolvedTheme, setTheme } = useTheme();
+
   const { data: session, status } = useSession();
   const loading = status === 'loading';
-
-  const { resolvedTheme, setTheme } = useTheme();
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {

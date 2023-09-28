@@ -7,6 +7,7 @@ import { EventList } from '../../components/events/EventList';
 import { EventsSearch } from '../../components/events/EventsSearch';
 import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
+import { Progress } from '@nextui-org/react';
 
 export default function AllEventsPage(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,8 +32,8 @@ export default function AllEventsPage(props) {
     router.push(fullPath);
   };
 
-  if (isLoading) {
-    return <p className="text-center">Loading...</p>;
+  if (isLoading || !events) {
+    return <Progress label="Loading..." color="primary-200" isIndeterminate />;
   }
 
   return (

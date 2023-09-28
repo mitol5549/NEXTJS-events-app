@@ -4,12 +4,15 @@ import { Button, Card, CardBody, CardFooter, CardHeader, Input } from '@nextui-o
 import { createUser } from '../../helpers/auth';
 
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export const AuthForm = () => {
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
 
   const [isLogin, setIsLogin] = useState(true);
+
+  const router = useRouter();
 
   const switchAuthModeHandler = () => {
     setIsLogin(prevState => !prevState);
@@ -18,9 +21,8 @@ export const AuthForm = () => {
   const submitHandler = async () => {
     if (isLogin) {
       const result = await signIn('credentials', { redirect: false, email: enteredEmail, password: enteredPassword });
-      setEnteredEmail('');
-      setEnteredPassword('');
       if (!result.error) {
+        router.replace('/events');
       }
     } else {
       try {
@@ -40,6 +42,7 @@ export const AuthForm = () => {
       <CardBody className="gap-4">
         <Input
           label="Email"
+          id="email"
           placeholder="Enter your email"
           type="email"
           size="sm"
@@ -49,6 +52,7 @@ export const AuthForm = () => {
         />
         <Input
           label="Password"
+          id="password"
           placeholder="Enter your password"
           type="password"
           size="sm"

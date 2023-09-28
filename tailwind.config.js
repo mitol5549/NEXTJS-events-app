@@ -18,6 +18,9 @@ module.exports = {
   darkMode: 'class',
   plugins: [
     nextui({
+      addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
+      defaultTheme: 'light', // default theme from the themes object
+      defaultExtendTheme: 'light',
       themes: {
         light: {
           colors: {
