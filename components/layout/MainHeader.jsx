@@ -111,7 +111,7 @@ export const MainHeader = () => {
         )}
         <NavbarMenuItem className="w-full flex sm:hidden">
           {session && (
-            <Button color="foreground" className="mt-8 mx-auto bg-primary-200" size="lg">
+            <Button color="foreground" className="mt-8 mx-auto bg-primary-200" size="lg" onClick={logoutHandler}>
               Logout
             </Button>
           )}

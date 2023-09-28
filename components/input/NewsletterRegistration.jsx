@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import axios from 'axios';
 
@@ -7,14 +7,26 @@ import { NotificationContext } from '../../store/notification-context';
 import { Input, Button } from '@nextui-org/react';
 
 export const NewsletterRegistration = () => {
-  const emailInputRef = useRef();
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [enteredEmail, setInteredEmail] = useState('');
 
   const notificationCtx = useContext(NotificationContext);
 
-  const registrationHandler = event => {
-    event.preventDefault();
+  const regex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
-    const enteredEmail = emailInputRef.current.value;
+  useEffect(() => {
+    if (enteredEmail !== '' && !regex.test(enteredEmail)) {
+      setIsInvalid(true);
+    } else {
+      setIsInvalid(false);
+    }
+  }, [enteredEmail]);
+
+  const registrationHandler = () => {
+    if (!regex.test(enteredEmail)) {
+      setIsInvalid(true);
+      return;
+    }
 
     notificationCtx.showNotification({
       title: 'Signing up...',
@@ -42,7 +54,7 @@ export const NewsletterRegistration = () => {
       .catch(error => {
         notificationCtx.showNotification({
           title: 'Error!',
-          message: error.message || 'Something went wrong!',
+          message: error.response.data.message || 'Something went wrong!',
           status: 'error',
         });
       });
@@ -51,22 +63,24 @@ export const NewsletterRegistration = () => {
   return (
     <section className="my-12 mx-auto max-w-xs">
       <h2 className="mb-4 text-center">Sign up to stay updated!</h2>
-      <form onSubmit={registrationHandler}>
-        <div className="flex gap-4">
-          <Input
-            type="email"
-            label="Email"
-            aria-label="Your email"
-            placeholder="Enter your email"
-            size="sm"
-            isClearable
-            ref={emailInputRef}
-          />
-          <Button className="bg-primary-200" size="lg" type="submit">
-            Register
-          </Button>
-        </div>
-      </form>
+      <div className="flex gap-4">
+        <Input
+          type="email"
+          label="Email"
+          aria-label="Your email"
+          placeholder="Enter your email"
+          size="sm"
+          isClearable
+          color={isInvalid ? 'danger' : ''}
+          value={enteredEmail}
+          isInvalid={isInvalid}
+          errorMessage={isInvalid && 'Please enter a valid email.'}
+          onValueChange={setInteredEmail}
+        />
+        <Button className="bg-primary-200" size="lg" type="submit" onClick={registrationHandler}>
+          Register
+        </Button>
+      </div>
     </section>
   );
 };
