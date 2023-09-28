@@ -31,3 +31,11 @@ export const findOne = async (client, collection, filter = {}) => {
 
   return existingItem;
 };
+
+export const updateOne = async (client, collection, filter, valueToChange) => {
+  const db = client.db('events');
+
+  const existingItem = await db.collection(collection).findOne(filter, valueToChange);
+
+  return existingItem;
+};

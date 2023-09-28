@@ -1,18 +1,21 @@
 // import { useEffect, useState } from 'react';
-import { ProfileForm } from './ProfileForm';
 
-import classes from './user-profile.module.css';
 // import { getSession } from 'next-auth/react';
 
-export const UserProfile = () => {
+import axios from 'axios';
+import { ProfileForm } from './ProfileForm';
+
+export const UserProfile = props => {
   // const [isLoading, setIsLoading] = useState(true);
+
+  const userEmail = props.email;
 
   // useEffect(() => {
   //   getSession().then(session => {
   //     if (!session) {
   //       window.location.href = '/auth';
   //     } else {
-  //       setIsLoading(false);
+  //       setIsLoading(false)
   //     }
   //   });
   // }, []);
@@ -21,10 +24,22 @@ export const UserProfile = () => {
   //   return <p className={classes.profile}>Loading...</p>;
   // }
 
+  const changePasswordHandler = async passwordData => {
+    const response = await axios.patch('/api/user/change-password', passwordData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.data;
+
+    console.log(data);
+  };
+
   return (
-    <section className={classes.profile}>
-      <h1>Your User Profile</h1>
-      <ProfileForm />
-    </section>
+    <>
+      <h1 className="text-center text-4xl font-mono font-normal py-12">Hallo, {userEmail}</h1>
+      <ProfileForm onChangePassword={changePasswordHandler} />
+    </>
   );
 };

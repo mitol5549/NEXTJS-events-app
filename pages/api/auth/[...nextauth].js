@@ -4,7 +4,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectDatabase, findOne } from '../../../helpers/db-util';
 import { verifyPassword } from '../../../helpers/auth';
 
-export default NextAuth({
+export const authOptions = {
+  secret: 'thequickbrownfox',
   session: {
     jwt: true,
   },
@@ -33,4 +34,6 @@ export default NextAuth({
       },
     }),
   ],
-});
+};
+
+export default NextAuth(authOptions);

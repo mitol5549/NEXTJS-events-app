@@ -36,7 +36,7 @@ module.exports = {
               700: '#004493',
               800: '#002e62',
               900: '#001731',
-              foreground: '##FF4ECD',
+              foreground: '#FF4ECD',
               DEFAULT: '#006FEE',
             },
           },

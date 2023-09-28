@@ -2,8 +2,8 @@ import { getSession } from 'next-auth/react';
 
 import { UserProfile } from '../components/profile/UserProfile';
 
-export default function ProfilePage() {
-  return <UserProfile />;
+export default function ProfilePage(props) {
+  return <UserProfile email={props.email} />;
 }
 
 export async function getServerSideProps(context) {
@@ -19,6 +19,6 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { session },
+    props: { session, email: session.user.email },
   };
 }
