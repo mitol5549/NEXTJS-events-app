@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, Card, Input } from '@nextui-org/react';
+import { Button, Card, CardBody, CardFooter, CardHeader, Input } from '@nextui-org/react';
 import { createUser } from '../../helpers/auth';
 
 import { signIn } from 'next-auth/react';
@@ -18,6 +18,8 @@ export const AuthForm = () => {
   const submitHandler = async () => {
     if (isLogin) {
       const result = await signIn('credentials', { redirect: false, email: enteredEmail, password: enteredPassword });
+      setEnteredEmail('');
+      setEnteredPassword('');
       if (!result.error) {
       }
     } else {
@@ -31,22 +33,38 @@ export const AuthForm = () => {
   };
 
   return (
-    <Card className="max-w-xl w-4/5 mx-auto my-12 text-center">
-      <h1 className="text-2xl font-mono font-normal py-4">{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <div className="{classes.control}">
-        <label htmlFor="email">Your Email</label>
-        <Input type="email" id="email" required value={enteredEmail} onValueChange={setEnteredEmail} />
-      </div>
-      <div className="{classes.control}">
-        <label htmlFor="password">Your Password</label>
-        <Input type="password" id="password" required value={enteredPassword} onValueChange={setEnteredPassword} />
-      </div>
-      <div className="{classes.actions}">
-        <Button onClick={submitHandler}>{isLogin ? 'Login' : 'Create Account'}</Button>
-        <Button className="{classes.toggle}" onClick={switchAuthModeHandler}>
+    <Card className="max-w-lg w-4/5 mx-auto mt-12">
+      <CardHeader className="mt-4 flex-col">
+        <h1 className="text-2xl font-mono font-normal py-4">{isLogin ? 'Login' : 'Sign Up'}</h1>
+      </CardHeader>
+      <CardBody className="gap-4">
+        <Input
+          label="Email"
+          placeholder="Enter your email"
+          type="email"
+          size="sm"
+          isRequired
+          value={enteredEmail}
+          onValueChange={setEnteredEmail}
+        />
+        <Input
+          label="Password"
+          placeholder="Enter your password"
+          type="password"
+          size="sm"
+          isRequired
+          value={enteredPassword}
+          onValueChange={setEnteredPassword}
+        />
+      </CardBody>
+      <CardFooter className="flex-col">
+        <Button className="bg-primary-200 mb-4" onClick={submitHandler}>
+          {isLogin ? 'Login' : 'Create Account'}
+        </Button>
+        <Button variant="light" onClick={switchAuthModeHandler}>
           {isLogin ? 'Create new account' : 'Login with existing account'}
         </Button>
-      </div>
+      </CardFooter>
     </Card>
   );
 };

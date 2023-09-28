@@ -55,9 +55,9 @@ export const NewsletterRegistration = () => {
         <div className="flex gap-4">
           <Input
             type="email"
-            id="email"
             label="Email"
             aria-label="Your email"
+            placeholder="Enter your email"
             size="sm"
             isClearable
             ref={emailInputRef}

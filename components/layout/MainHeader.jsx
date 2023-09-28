@@ -56,15 +56,17 @@ export const MainHeader = () => {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#" isDisabled={session ? false : true}>
-            Create Event
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
           <Link color="foreground" href="/events" isDisabled={session ? false : true}>
             Browse All Events
           </Link>
         </NavbarItem>
+        {session && (
+          <NavbarItem>
+            <Link color="foreground" href="/profile">
+              Profile
+            </Link>
+          </NavbarItem>
+        )}
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="gap-12 hidden sm:flex">
@@ -96,16 +98,18 @@ export const MainHeader = () => {
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link color="foreground" className="w-full" href="#" size="lg" isDisabled={session ? false : true}>
-            Create Event
-          </Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem>
           <Link color="foreground" className="w-full" href="/events" size="lg" isDisabled={session ? false : true}>
             Browse All Events
           </Link>
         </NavbarMenuItem>
-        <NavbarMenuItem className="w-full flex">
+        {session && (
+          <NavbarMenuItem>
+            <Link color="foreground" className="w-full" href="/profile" size="lg">
+              Profile
+            </Link>
+          </NavbarMenuItem>
+        )}
+        <NavbarMenuItem className="w-full flex sm:hidden">
           {session && (
             <Button color="foreground" className="mt-8 mx-auto bg-primary-200" size="lg">
               Logout

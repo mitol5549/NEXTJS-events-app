@@ -5,8 +5,22 @@ import { getAllEvents } from '../../helpers/api-util';
 
 import { EventList } from '../../components/events/EventList';
 import { EventsSearch } from '../../components/events/EventsSearch';
+import { useEffect, useState } from 'react';
+import { getSession } from 'next-auth/react';
 
 export default function AllEventsPage(props) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getSession().then(session => {
+      if (!session) {
+        window.location.href = '/auth';
+      } else {
+        setIsLoading(false);
+      }
+    });
+  }, []);
+
   const router = useRouter();
 
   const { events } = props;
@@ -16,6 +30,10 @@ export default function AllEventsPage(props) {
 
     router.push(fullPath);
   };
+
+  if (isLoading) {
+    return <p className="text-center">Loading...</p>;
+  }
 
   return (
     <>
