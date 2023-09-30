@@ -78,7 +78,7 @@ export const NewsletterRegistration = () => {
           onValueChange={setInteredEmail}
         />
         <Button className="bg-primary-200" size="lg" type="submit" onClick={registrationHandler}>
-          Register
+          Subscribe
         </Button>
       </div>
     </section>

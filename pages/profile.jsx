@@ -3,6 +3,9 @@ import { getSession } from 'next-auth/react';
 import { UserProfile } from '../components/profile/UserProfile';
 
 export default function ProfilePage(props) {
+  if (!props) {
+    return <Progress size="lg" color="secondary" label="Loading..." isIndeterminate />;
+  }
   return <UserProfile email={props.email} />;
 }
 

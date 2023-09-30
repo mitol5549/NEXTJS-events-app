@@ -1,19 +1,27 @@
 import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
+
+import { createUser } from '../../helpers/auth';
+import { NotificationContext } from '../../store/notification-context';
+
+import { EyeFilledIcon, EyeSlashFilledIcon } from '../icons/EyeIcon';
 
 import { Button, Card, CardBody, CardFooter, CardHeader, Input } from '@nextui-org/react';
-import { createUser } from '../../helpers/auth';
-
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { NotificationContext } from '../../store/notification-context';
 
 export const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [isEmailInvalid, setIsEmailInvalid] = useState(false);
   const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmVisible, setIsConfirmVisible] = useState(false);
 
   const regex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
@@ -24,19 +32,29 @@ export const AuthForm = () => {
   useEffect(() => {
     if (enteredEmail !== '' && !regex.test(enteredEmail)) {
       setIsEmailInvalid(true);
-    } else if (enteredPassword !== '' && enteredPassword.trim().length < 7) {
-      setIsPasswordInvalid(true);
-    } else {
-      setIsEmailInvalid(false);
-      setIsPasswordInvalid(false);
+      return;
     }
-  }, [enteredEmail, enteredPassword]);
+
+    setIsEmailInvalid(false);
+  }, [enteredEmail]);
+
+  useEffect(() => {
+    if (enteredPassword !== '' && enteredPassword.trim().length < 7) {
+      setIsPasswordInvalid(true);
+      return;
+    }
+
+    setIsPasswordInvalid(false);
+  }, [enteredPassword]);
 
   const switchAuthModeHandler = () => {
     setIsLogin(prevState => !prevState);
     setEnteredEmail('');
     setEnteredPassword('');
   };
+
+  const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
+  const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible);
 
   const submitHandler = async () => {
     setIsLoading(true);
@@ -116,11 +134,11 @@ export const AuthForm = () => {
           placeholder="Enter your email"
           type="email"
           size="sm"
-          isRequired
+          isRequired={!isLogin}
           isClearable
-          color={isEmailInvalid ? 'danger' : ''}
-          isInvalid={isEmailInvalid}
-          errorMessage={isEmailInvalid && 'Please enter a valid email.'}
+          color={!isLogin && isEmailInvalid && 'danger'}
+          isInvalid={!isLogin && isEmailInvalid}
+          errorMessage={!isLogin && isEmailInvalid && 'Please enter a valid email.'}
           value={enteredEmail}
           onValueChange={setEnteredEmail}
         />
@@ -128,22 +146,60 @@ export const AuthForm = () => {
           label="Password"
           id="password"
           placeholder="Enter your password"
-          type="password"
           size="sm"
-          isRequired
-          isClearable
-          color={isPasswordInvalid ? 'danger' : ''}
-          isInvalid={isPasswordInvalid}
-          errorMessage={
-            isPasswordInvalid &&
-            (isLogin ? 'Please enter a valid password.' : 'Password should be at least 7 characters long.')
+          isRequired={!isLogin}
+          type={isPasswordVisible ? 'text' : 'password'}
+          endContent={
+            <button className="focus:outline-none" type="button" onClick={togglePasswordVisibility}>
+              {isPasswordVisible ? (
+                <EyeSlashFilledIcon className="text-xl text-default-400 pointer-events-none" />
+              ) : (
+                <EyeFilledIcon className="text-xl text-default-400 pointer-events-none" />
+              )}
+            </button>
           }
+          color={!isLogin && isPasswordInvalid && 'danger'}
+          isInvalid={!isLogin && isPasswordInvalid}
+          errorMessage={!isLogin && isPasswordInvalid && 'Password should be at least 7 characters long.'}
           value={enteredPassword}
           onValueChange={setEnteredPassword}
         />
+        {!isLogin && (
+          <Input
+            label="Confirm Password"
+            id="password"
+            placeholder="Confirm your password"
+            size="sm"
+            isRequired
+            type={isConfirmVisible ? 'text' : 'password'}
+            endContent={
+              <button className="focus:outline-none" type="button" onClick={toggleConfirmVisibility}>
+                {isConfirmVisible ? (
+                  <EyeSlashFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                ) : (
+                  <EyeFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                )}
+              </button>
+            }
+            color={confirmPassword && enteredPassword !== confirmPassword && 'danger'}
+            isInvalid={confirmPassword && enteredPassword !== confirmPassword}
+            errorMessage={confirmPassword && enteredPassword !== confirmPassword && 'Passwords do not match'}
+            value={confirmPassword}
+            onValueChange={setConfirmPassword}
+          />
+        )}
       </CardBody>
       <CardFooter className="flex-col">
-        <Button className="bg-primary-200 mb-4" onClick={submitHandler} isLoading={isLoading}>
+        <Button
+          className="bg-primary-200 mb-4"
+          onClick={submitHandler}
+          isLoading={isLoading}
+          isDisabled={
+            isLogin
+              ? !enteredEmail || !enteredPassword
+              : isEmailInvalid || isPasswordInvalid || enteredPassword !== confirmPassword
+          }
+        >
           {isLogin ? 'Login' : 'Create Account'}
         </Button>
         <Button variant="light" onClick={switchAuthModeHandler}>

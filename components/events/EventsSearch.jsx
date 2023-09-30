@@ -4,8 +4,8 @@ import { months, years } from '../../helpers/calendar';
 import { Select, SelectItem, Button } from '@nextui-org/react';
 
 export const EventsSearch = props => {
-  const [selectedYear, setSelectedYear] = useState('2021');
-  const [selectedMonth, setSelectedMonth] = useState('1');
+  const [selectedYear, setSelectedYear] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
 
   const yearHandler = year => {
     setSelectedYear(year.anchorKey);
@@ -16,6 +16,10 @@ export const EventsSearch = props => {
   };
 
   const submitHandler = () => {
+    if (!selectedMonth || !selectedYear) {
+      return;
+    }
+
     props.onSearch(selectedYear, selectedMonth);
   };
 
@@ -23,13 +27,7 @@ export const EventsSearch = props => {
     <div className="flex flex-col justify-between w-4/5 max-w-2xl p-4 my-8 mx-auto md:flex-row gap-4 items-center">
       <div className="flex flex-col w-full gap-4 md:w-4/5 md:flex-row ">
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
-          <Select
-            defaultSelectedKeys={['2021']}
-            label="Year"
-            className="max-w-xs"
-            size="sm"
-            onSelectionChange={yearHandler}
-          >
+          <Select label="Year" placeholder="Select year" className="max-w-xs" size="sm" onSelectionChange={yearHandler}>
             {years.map(year => (
               <SelectItem key={year.value} value={year.value}>
                 {year.value}
@@ -39,8 +37,8 @@ export const EventsSearch = props => {
         </div>
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
           <Select
-            defaultSelectedKeys={['1']}
             label="Month"
+            placeholder="Select month"
             className="max-w-xs"
             size="sm"
             onSelectionChange={monthHandler}

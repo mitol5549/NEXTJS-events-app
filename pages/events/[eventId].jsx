@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { Progress } from '@nextui-org/react';
+import { getSession } from 'next-auth/react';
 
 import { getFeaturedEvents, getEventById } from '../../helpers/api-util';
 
@@ -8,7 +10,6 @@ import { EventLogistics } from '../../components/event-detail/EventLogistics';
 import { EventContent } from '../../components/event-detail/EventContent';
 import { ErrorAlert } from '../../components/UI/ErrorAlert';
 import { Comments } from '../../components/input/Comments';
-import { Progress } from '@nextui-org/react';
 
 export default function EventDetailPage(props) {
   const { event } = props;
@@ -20,6 +21,16 @@ export default function EventDetailPage(props) {
       setIsLoading(false);
     }
   }, [event]);
+
+  useEffect(() => {
+    getSession().then(session => {
+      if (!session) {
+        window.location.href = '/auth';
+      } else {
+        setIsLoading(false);
+      }
+    });
+  }, []);
 
   if (isLoading) {
     return <Progress size="lg" color="secondary" label="Loading..." isIndeterminate={true} />;
