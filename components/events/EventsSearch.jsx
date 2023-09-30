@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { months, years } from '../../helpers/calendar';
-
 import { Select, SelectItem, Button } from '@nextui-org/react';
+
+import { months, years } from '../../helpers/calendar';
 
 export const EventsSearch = props => {
   const [selectedYear, setSelectedYear] = useState('');

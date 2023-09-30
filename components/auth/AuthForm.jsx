@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
+import { Button, Card, CardBody, CardFooter, CardHeader, Input } from '@nextui-org/react';
 
 import { createUser } from '../../helpers/auth';
 import { NotificationContext } from '../../store/notification-context';
 
 import { EyeFilledIcon, EyeSlashFilledIcon } from '../icons/EyeIcon';
-
-import { Button, Card, CardBody, CardFooter, CardHeader, Input } from '@nextui-org/react';
 
 export const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);

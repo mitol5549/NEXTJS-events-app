@@ -1,13 +1,13 @@
+import { NextUIProvider } from '@nextui-org/react';
+import { SessionProvider } from 'next-auth/react';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import Head from 'next/head';
 
-import { NextUIProvider } from '@nextui-org/react';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-
-import { Layout } from '../components/layout/Layout';
 import { NotificationContextProvider } from '../store/notification-context';
 
+import { Layout } from '../components/layout/Layout';
+
 import '../styles/globals.css';
-import { SessionProvider } from 'next-auth/react';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

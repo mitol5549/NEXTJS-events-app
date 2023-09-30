@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-
 import axios from 'axios';
+import { Button } from '@nextui-org/react';
 
 import { NotificationContext } from '../../store/notification-context';
 
 import { CommentList } from './CommentList';
 import { NewComment } from './NewComment';
-
-import { Button } from '@nextui-org/react';
 
 export const Comments = props => {
   const { eventId } = props;

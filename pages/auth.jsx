@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { Progress } from '@nextui-org/react';
 
 import { AuthForm } from '../components/auth/AuthForm';
-import { Progress } from '@nextui-org/react';
 
 export default function AuthPage() {
   const [isLoading, setIsLoading] = useState(true);

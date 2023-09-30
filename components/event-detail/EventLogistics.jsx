@@ -1,8 +1,8 @@
 import Image from 'next/image';
+import { Card, CardBody, CardHeader } from '@nextui-org/react';
 
 import { LogisticsItem } from './LogisticsItem';
 
-import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { AddressIcon } from '../icons/AddressIcon';
 import { DateIcon } from '../icons/DateIcon';
 

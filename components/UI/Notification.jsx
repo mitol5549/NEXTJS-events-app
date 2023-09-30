@@ -1,7 +1,7 @@
 import { useContext } from 'react';
+import { Card } from '@nextui-org/react';
 
 import { NotificationContext } from '../../store/notification-context';
-import { Card } from '@nextui-org/react';
 
 export const Notification = props => {
   const notificationCtx = useContext(NotificationContext);

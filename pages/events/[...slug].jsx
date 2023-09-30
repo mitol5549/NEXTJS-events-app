@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-
 import { useRouter } from 'next/router';
-
 import useSWR from 'swr';
+import { Button, Link, Progress } from '@nextui-org/react';
 
 // import { getFilteredEvents } from '../../helpers/api-util';
 
 import { EventList } from '../../components/events/EventList';
 import { ResultsTitle } from '../../components/events/ResultsTitle';
 import { ErrorAlert } from '../../components/UI/ErrorAlert';
-import { Button, Link, Progress, Spinner } from '@nextui-org/react';
 
 export default function FilteredEventsPage() {
   const [loadedEvents, setLoadedEvents] = useState();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import { useSession, signOut } from 'next-auth/react';
 import {
   Navbar,
   NavbarBrand,
@@ -12,8 +12,6 @@ import {
   NavbarMenuItem,
 } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
-
-import { useSession, signOut } from 'next-auth/react';
 
 import { Sun, Moon } from '../icons/ThemeIcon';
 

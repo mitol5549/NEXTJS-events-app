@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { Progress } from '@nextui-org/react';
 import { getSession } from 'next-auth/react';
+import { Progress } from '@nextui-org/react';
 
 import { getFeaturedEvents, getEventById } from '../../helpers/api-util';
 

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { Button, Card, Input, Textarea } from '@nextui-org/react';
 
 export const NewComment = props => {

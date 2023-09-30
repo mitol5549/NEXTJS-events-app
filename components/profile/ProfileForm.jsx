@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-
 import { Button, Card, CardBody, CardFooter, CardHeader, Input } from '@nextui-org/react';
+
 import { EyeFilledIcon, EyeSlashFilledIcon } from '../icons/EyeIcon';
 
 export const ProfileForm = props => {

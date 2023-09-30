@@ -1,5 +1,4 @@
 import { Carousel } from '../UI/Carousel';
-
 import { EventItem } from './EventItem';
 
 export const EventList = props => {

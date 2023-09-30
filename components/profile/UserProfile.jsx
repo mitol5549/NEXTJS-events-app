@@ -1,11 +1,10 @@
 import { useContext, useState } from 'react';
-
 // import { getSession } from 'next-auth/react';
-
 import axios from 'axios';
 
-import { ProfileForm } from './ProfileForm';
 import { NotificationContext } from '../../store/notification-context';
+
+import { ProfileForm } from './ProfileForm';
 
 export const UserProfile = props => {
   const [isLoading, setIsLoading] = useState(false);

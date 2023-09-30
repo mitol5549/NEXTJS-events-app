@@ -1,10 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-
 import axios from 'axios';
+import { Input, Button } from '@nextui-org/react';
 
 import { NotificationContext } from '../../store/notification-context';
-
-import { Input, Button } from '@nextui-org/react';
 
 export const NewsletterRegistration = () => {
   const [isInvalid, setIsInvalid] = useState(false);

@@ -1,5 +1,5 @@
-import { authOptions } from '../auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
 import { connectDatabase } from '../../../helpers/db-util';
 import { hashPassword, verifyPassword } from '../../../helpers/auth';
